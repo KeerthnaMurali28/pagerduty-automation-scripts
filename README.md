@@ -3,7 +3,7 @@ PagerDuty Automation
 Please update your API Key before Running any of the script
 
 To Generate the API key:
-1. Go to https://kellerwilliams.pagerduty.com/api_keys
+1. Go to your-domain-Pagerduty/apikeys
 2. Click Create API_key
 3. Make sure to copy the API keys
 4. USe the key for running the script
