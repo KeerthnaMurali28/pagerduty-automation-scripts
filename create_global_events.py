@@ -6,8 +6,12 @@ import sys
 import json
 
 parser = argparse.ArgumentParser(description='Graph alert volumes for a given escalation policy.')
+
+# adding condtions ex: condition1,condition2........
 parser.add_argument('condition')
+# Name of the service
 parser.add_argument('route_to_service')
+# Regex Pattern
 parser.add_argument('pattern')
 
 args = parser.parse_args()
@@ -15,9 +19,13 @@ condition = args.condition.split(',')
 route = args.route_to_service
 pattern = args.pattern
 
+print ('condition: ' + args.condition)
+print ('route service: ' + route)
+print ('pattern: ' + pattern)
+
 API_URL = 'https://api.pagerduty.com/event_rules'
 API_KEY = ''
-HEADERS = {'Content-type': 'application/json','Authorization': 'Token token=' API_KEY}
+HEADERS = {'Content-type': 'application/json','Authorization': 'Token token=' + API_KEY}
 
 def get_services():
     serviceId=''
@@ -31,6 +39,8 @@ def get_services():
     for i in r.json()['escalation_policy']['services']:
         if(i['summary'] == route):
             serviceId = i['id']
+    
+    print ('service id: ' + serviceId)
     return serviceId
 
 def create_event(serviceId):
@@ -69,7 +79,7 @@ def create_event(serviceId):
             ]
         }
 
-    print data
+    print (data)
     result = requests.post(
         API_URL,
         headers=HEADERS,
@@ -81,9 +91,9 @@ def run():
     serviceId = get_services()
 
     if(serviceId == ''):
-        print 'Service Not Found'
+        print ('Service Not Found')
         return -1
 
-    print "Success :) " + create_event(serviceId)
+    print ("Success :) " + create_event(serviceId))
 
 run()

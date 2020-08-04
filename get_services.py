@@ -7,7 +7,7 @@ import csv
 import argparse
 
 api_key = ''
-HEADERS = {'Content-type': 'application/json','Authorization': 'Token token=' api_key}
+HEADERS = {'Content-type': 'application/json','Authorization': 'Token token=' + api_key}
 
 def getServicesFromAPI():
     url = 'https://api.pagerduty.com/escalation_policies/P9KJL1P'
@@ -33,11 +33,11 @@ def exportToCSV(services):
         }
         writer.writerow(row)
     csvfile.close()
-    print 'Successfully exported as ' + fileName
+    print ('Successfully exported as ' + fileName)
 
 def printAllServices(services):
     for i in services:
-        print 'Service_Id: ' + i['id'] + ', Service_Name: ' + i['summary']
+        print ('Service_Id: ' + i['id'] + ', Service_Name: ' + i['summary'])
 
 def getServiceByName(service_name):
     serviceId=''
@@ -60,9 +60,9 @@ def getService(args):
     service_id = getServiceByName(service_name)
 
     if(service_id == ''):
-        print 'Provided Service Name does not exist'
+        print ('Provided Service Name does not exist')
     else:
-        print service_id
+        print (service_id)
 
 def run():
     command_parser = argparse.ArgumentParser()

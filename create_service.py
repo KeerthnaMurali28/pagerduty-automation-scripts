@@ -48,7 +48,7 @@ def create_service():
                             }
                         }
 
-            print data
+            print(data)
             result = requests.post(
                 API_URL,
                 headers=HEADERS,
